@@ -1,9 +1,10 @@
 ﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 //Q1 פתרון רגיל שאלה מספר
 MainQ1(); // קריאה לפונקציה
 static void MainQ1()
 {
-    Console.WriteLine("Enter 3 numbers");
+    Console.WriteLine("Here is the Minimal of 1,1,2:");
     int n1 = 1; //קלוט מספר שלם
     int n2 = 1; //קלוט מספר שלם
     int n3 = 2; //קלוט מספר שלם
@@ -64,7 +65,7 @@ static int Smallest3(int[] arr) //ideally take in (IEnumerable<int> arr)
 // לא בחומר ולא יהיה בחומר Debug.Assert
 // אבל בסה"כ אני טוען טענה שמשהו מתקיים
 // ואם לא אז הקוד יעצור
-Console.WriteLine($"The smallest is {Smallest(2, 3, 2)}");
+Console.WriteLine($"\nThe smallest of 2, 3, 2 is: {Smallest(2, 3, 2)}");
 int n1, n2, n3;
 (n1, n2, n3) = (1, 4, 5);
 //השוואה בין פתרון 1 ל-2
@@ -95,12 +96,12 @@ static void D(bool bF, bool bT, string fName)
 //Q3 פתרון רגיל לשאלת ההנחה
 static void MainQ3()
 {
-    Console.WriteLine("Enter number of shirts");
+    Console.WriteLine("\nEnter number of shirts\nso we can calculate the total price");
     int quantity = int.Parse(Console.ReadLine());
 
     if (quantity <= 5)
-        Console.WriteLine(quantity * 20*0.95);
-    else if (quantity <=10)
+        Console.WriteLine(quantity * 20 * 0.95);
+    else if (quantity <= 10)
         Console.WriteLine(quantity * 20 * 0.9);
     else
         Console.WriteLine(quantity * 20 * 0.8);
@@ -135,6 +136,9 @@ for (int i = 0; i < 40; i++)
 // היחידה שלא כדאי לכתוב כפונקציה
 static void MainQ4()
 {
+    Console.WriteLine("\nThis is the repair count answer.\n" +
+        "here all 5 technitians did 26 repairs\n" +
+        "(input was bypassed)");
     int total = 0;
     for (int i = 0; i < 5; i++)
     //write 286 instead of 5 in the actual test
@@ -144,7 +148,7 @@ static void MainQ4()
         int numFixes = 26; // קלוט מספר שלם // int.Parse(Console.ReadLine());
         if (numFixes > 25)
             Console.WriteLine(name + " BONUS");
-        total += numFixes;
+        total += numFixes; // סכימת התיקונים היומיים
     }
     Console.WriteLine($"Total number of repairs today was {total}");
 }
@@ -157,15 +161,15 @@ MainQ4();
 //insert the numbers to the funtions 
 //exactly in the order they appear
 //in the answers table
-Console.WriteLine("start Q2 tests");
-//כאן יש שגיאה במכוון
+Console.WriteLine("\nstart Q2 tests");
+
 D(T21(0), T21(3), "T21");
 D(T22(2), T22(1), "T22");
 D(T23(14), T23(0), "T23");
 D(T24(1), T24(4), "T24");
 D(T25(15), T25(-2), "T25");
 
-Console.WriteLine("Test finished");
+Console.WriteLine("Test Q2 finished\n");
 
 //========================= מטלה 10 דגשים
 //===========  שאלה 2 =========
@@ -176,7 +180,8 @@ Console.WriteLine("Test finished");
 //8, -2, 0, -6.5, 15,0 ,7, 9.88, -50, 30  : 	עבור הסדרה
 //הפלט שיתקבל: המספר החיובי הקטן ביותר הוא 7
 //			   -המספר השלילי הגדול ביותר הוא 2 
-Console.WriteLine("This code will print minimal Positive and Maximal negative\n" +
+Console.WriteLine("This is Assignment 10 Q2:\n" +
+    "Code will print minimal Positive and Maximal negative\n" +
     "assuming there are both positives and negatives");
 double maxNeg = double.MinValue;
 double minPos = double.MaxValue;
@@ -216,21 +221,25 @@ if (maxNeg1 != null)
 
 //================================
 //==========   שאלה 6
-Console.WriteLine("\n this code will take a number -123 \nand add a missing digit 4");
+
+Console.WriteLine("\n this code will take a number -123 \n" +
+    "and add a digit if missing");
 //- א) כתיבה כפונקציה
 // ב) טיפול במספר 0
 // ג) טיפול במספרים שליליים
-Console.WriteLine(AddDigitIfMissing158Q34(-123, 4));
+Console.WriteLine(AddDigitIfMissing158Q34(-123, 3));
 static int AddDigitIfMissing158Q34(int num, int dig)
 {
     int numToReturn = num;
+    int sign = Math.Sign(numToReturn);
     if (num == 0)
         return dig; // או שאנו מחזירים 0 או שהוספנו את הספרה
-    while (num > 0)
+    while (num != 0)
     {
-        if (num % 10 == dig)
+        if (num % 10 == dig * sign)
             return numToReturn;
+        else Console.WriteLine(num % 10);
         num /= 10;
     }
-    return numToReturn * 10 + dig * Math.Sign(numToReturn);
+    return numToReturn * 10 + dig * sign;
 }
