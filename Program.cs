@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 //Q1 פתרון רגיל שאלה מספר
+MainQ1(); // קריאה לפונקציה
 static void MainQ1()
 {
     Console.WriteLine("Enter 3 numbers");
@@ -64,16 +65,16 @@ static int Smallest3(int[] arr) //ideally take in (IEnumerable<int> arr)
 // אבל בסה"כ אני טוען טענה שמשהו מתקיים
 // ואם לא אז הקוד יעצור
 Console.WriteLine($"The smallest is {Smallest(2, 3, 2)}");
-int n, m, k;
-(n, m, k) = (1, 4, 5);
+int n1, n2, n3;
+(n1, n2, n3) = (1, 4, 5);
 //השוואה בין פתרון 1 ל-2
-Debug.Assert(Smallest(n, m, k) == Smallest2(n, m, k));
-(n, m, k) = (1, 1, 2);
-Debug.Assert(Smallest(n, m, k) == Smallest2(n, m, k));
-(n, m, k) = (1, -1, -1);
-Debug.Assert(Smallest(n, m, k) == Smallest2(n, m, k));
-(n, m, k) = (3, 1, 6); //בדיקת הפתרון השלישי
-Debug.Assert(Smallest(n, m, k) == Smallest3(new[] { n, m, k }));
+Debug.Assert(Smallest(n1, n2, n3) == Smallest2(n1, n2, n3));
+(n1, n2, n3) = (1, 1, 2);
+Debug.Assert(Smallest(n1, n2, n3) == Smallest2(n1, n2, n3));
+(n1, n2, n3) = (1, -1, -1);
+Debug.Assert(Smallest(n1, n2, n3) == Smallest2(n1, n2, n3));
+(n1, n2, n3) = (3, 1, 6); //בדיקת הפתרון השלישי
+Debug.Assert(Smallest(n1, n2, n3) == Smallest3(new[] { n1, n2, n3 }));
 
 
 
@@ -159,11 +160,77 @@ MainQ4();
 Console.WriteLine("start Q2 tests");
 //כאן יש שגיאה במכוון
 D(T21(0), T21(3), "T21");
-D(T22(5), T22(1), "T22");
+D(T22(2), T22(1), "T22");
 D(T23(14), T23(0), "T23");
 D(T24(1), T24(4), "T24");
 D(T25(15), T25(-2), "T25");
 
 Console.WriteLine("Test finished");
 
+//========================= מטלה 10 דגשים
+//===========  שאלה 2 =========
+//פתחו ויישמו אלגוריתם המקבל כקלט 10 מספרים. האלגוריתם יציג כפלט את:
+//א.המספר החיובי הקטן ביותר.
+//ב. המספר השלילי הגדול ביותר.
+//לדוגמא:
+//8, -2, 0, -6.5, 15,0 ,7, 9.88, -50, 30  : 	עבור הסדרה
+//הפלט שיתקבל: המספר החיובי הקטן ביותר הוא 7
+//			   -המספר השלילי הגדול ביותר הוא 2 
+Console.WriteLine("This code will print minimal Positive and Maximal negative\n" +
+    "assuming there are both positives and negatives");
+double maxNeg = double.MinValue;
+double minPos = double.MaxValue;
+for (int i = 0; i < 3; i++) //need to go to 10 in real solution
+{
+    // הערה: ההנחה היא שיש חיוביים ושליליים בקלט 
+    // אחרת יודפס מספר שגוי
+    // דרכים להתמודד עם מקרי קצה כאלו יוצגו בעתיד
+    Console.WriteLine("enter a number");
+    double n = double.Parse(Console.ReadLine());
+    if (n > 0 && n < minPos)
+        minPos = n;
+    else if (n < 0 && n > maxNeg)
+        maxNeg = n;
+}
+Console.WriteLine($"Min positive is {minPos}\nMax negative is {maxNeg}");
 
+// פתרון חילופי במערכים עם תמיכה במקרי קצה
+// בחומר לסמסטר ב
+Console.WriteLine("\n\n\nAlternative - advanced");
+//using nullable types:
+double? minPos1 = null, maxNeg1 = null;
+foreach (var num in new[] { 8, -2, 0, -6.5, 15, 0, 7, 9.88, -50, 30 })
+{
+    // מסתמך על כך שעדיין אין ערך במשתנה
+    // כדי לקחת את המספר החיובי הראשון
+    if (num > 0 && (minPos1 is null || num < minPos1))
+        minPos1 = num;
+    else if (num < 0 && (maxNeg1 is null || num > maxNeg1))
+        maxNeg1 = num;
+}
+if (minPos1 != null)
+    Console.WriteLine("Min positive is " + minPos1);
+if (maxNeg1 != null)
+    Console.WriteLine("Max negative is " + maxNeg1);
+
+
+//================================
+//==========   שאלה 6
+Console.WriteLine("\n this code will take a number -123 \nand add a missing digit 4");
+//- א) כתיבה כפונקציה
+// ב) טיפול במספר 0
+// ג) טיפול במספרים שליליים
+Console.WriteLine(AddDigitIfMissing158Q34(-123, 4));
+static int AddDigitIfMissing158Q34(int num, int dig)
+{
+    int numToReturn = num;
+    if (num == 0)
+        return dig; // או שאנו מחזירים 0 או שהוספנו את הספרה
+    while (num > 0)
+    {
+        if (num % 10 == dig)
+            return numToReturn;
+        num /= 10;
+    }
+    return numToReturn * 10 + dig * Math.Sign(numToReturn);
+}
