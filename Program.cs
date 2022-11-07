@@ -171,33 +171,6 @@ D(T25(15), T25(-2), "T25");
 
 Console.WriteLine("Test Q2 finished\n");
 
-//========================= מטלה 10 דגשים
-//===========  שאלה 2 =========
-//פתחו ויישמו אלגוריתם המקבל כקלט 10 מספרים. האלגוריתם יציג כפלט את:
-//א.המספר החיובי הקטן ביותר.
-//ב. המספר השלילי הגדול ביותר.
-//לדוגמא:
-//8, -2, 0, -6.5, 15,0 ,7, 9.88, -50, 30  : 	עבור הסדרה
-//הפלט שיתקבל: המספר החיובי הקטן ביותר הוא 7
-//			   -המספר השלילי הגדול ביותר הוא 2 
-Console.WriteLine("This is Assignment 10 Q2:\n" +
-    "Code will print minimal Positive and Maximal negative\n" +
-    "assuming there are both positives and negatives");
-double maxNeg = double.MinValue;
-double minPos = double.MaxValue;
-for (int i = 0; i < 3; i++) //need to go to 10 in real solution
-{
-    // הערה: ההנחה היא שיש חיוביים ושליליים בקלט 
-    // אחרת יודפס מספר שגוי
-    // דרכים להתמודד עם מקרי קצה כאלו יוצגו בעתיד
-    Console.WriteLine("enter a number");
-    double n = double.Parse(Console.ReadLine());
-    if (n > 0 && n < minPos)
-        minPos = n;
-    else if (n < 0 && n > maxNeg)
-        maxNeg = n;
-}
-Console.WriteLine($"Min positive is {minPos}\nMax negative is {maxNeg}");
 
 // פתרון חילופי במערכים עם תמיכה במקרי קצה
 // בחומר לסמסטר ב
@@ -218,6 +191,58 @@ if (minPos1 != null)
 if (maxNeg1 != null)
     Console.WriteLine("Max negative is " + maxNeg1);
 
+
+//========================= מטלה 10 דגשים
+//===========  שאלה 2 =========
+//פתחו ויישמו אלגוריתם המקבל כקלט 10 מספרים. האלגוריתם יציג כפלט את:
+//א.המספר החיובי הקטן ביותר.
+//ב. המספר השלילי הגדול ביותר.
+//לדוגמא:
+//8, -2, 0, -6.5, 15,0 ,7, 9.88, -50, 30  : 	עבור הסדרה
+//הפלט שיתקבל: המספר החיובי הקטן ביותר הוא 7
+//			   -המספר השלילי הגדול ביותר הוא 2 
+Console.WriteLine("This is Assignment 10 Q2:\n" +
+    "Code will print minimal Positive and Maximal negative\n" +
+    "assuming there are both positives and negatives");
+double maxNeg = double.MinValue;
+double minPos = double.MaxValue;
+for (int i = 0; i < 3; i++) //need to go to 10 in real solution
+{
+  // הערה: ההנחה היא שיש חיוביים ושליליים בקלט 
+  // אחרת יודפס מספר שגוי
+  // דרכים להתמודד עם מקרי קצה כאלו יוצגו בעתיד
+  Console.WriteLine("enter a number");
+  double n = double.Parse(Console.ReadLine());
+  if (n > 0 && n < minPos)
+    minPos = n;
+  else if (n < 0 && n > maxNeg)
+    maxNeg = n;
+}
+Console.WriteLine($"Min positive is {minPos}\nMax negative is {maxNeg}");
+
+//=========================
+//====  שאלה 5
+Console.WriteLine("\nThis code will check number of descending");
+Console.WriteLine("Number of decending is:\n"+NumberOfDescending());
+Console.WriteLine("Number of decending is:\n" + NumberOfDescending());
+
+static int NumberOfDescending()
+{
+  int previous = int.MinValue;
+  int currentNum = previous; //setting that will not bias count
+  int counter = 0;
+  while (true)
+  {
+    Console.WriteLine("Enter a whole number. 0 to exit");
+    previous = currentNum; // KEEP HISTORY!!!
+    currentNum = int.Parse(Console.ReadLine());
+    if (currentNum ==0)
+      break;
+    if (currentNum < previous)
+      counter++;
+  }
+  return counter;
+}
 
 //================================
 //==========   שאלה 6
